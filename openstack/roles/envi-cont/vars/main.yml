@@ -1,0 +1,3 @@
+---
+# vars file for envi-cont
+mysql_root: password

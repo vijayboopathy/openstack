@@ -1,0 +1,58 @@
+---
+- name: Install Maria DB
+  apt: name={{item}}  state=installed
+  with_items:
+    - mariadb-server
+    - python-pymysql
+- name: Maria DB configuration
+  template: src=mysqld_openstack.cnf.j2  dest=/etc/mysql/conf.d/mysqld_openstack.cnf
+  notify:
+  - restart mariadb
+- name: Install python mysql module
+  apt: name=python-mysqldb state=installed
+- name: delete anonymous MySQL server user for {{ ansible_nodename }}
+  mysql_user: login_user=root
+              login_password='{{ mysql_root }}'
+              check_implicit_admin=yes
+              user=""
+              host={{ item }}
+              state="absent"
+  with_items:
+   - ""
+   - "{{ ansible_nodename }}"
+   - localhost
+- name: Change root user password on first run
+  mysql_user: login_user=root
+              login_password="{{ mysql_root }}"
+              check_implicit_admin=yes
+              name=root
+              password={{ mysql_root }}
+              priv=*.*:ALL,GRANT
+              host={{ item }}
+  with_items:
+    - "{{ ansible_nodename }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+- name: Remove the MySQL test database
+  action: mysql_db login_user=root login_password="{{ mysql_root }}" db=test state=absent
+- name: NoSQL DB (Mongo DB) installtion
+  apt: name={{item}}  state=installed
+  with_items:
+    - mongodb-server
+    - mongodb-clients
+    - python-pymongo
+- name: NoSQL DB configuration
+  template: src=mongodb.conf.j2  dest=/etc/mongodb.conf
+  notify:
+  - restart mongodb
+- name: Remove the initial journal files
+  file: path='/var/lib/mongodb/journal/{{ item }}' state=absent
+  with_fileglob:
+    - /var/lib/mongodb/journal/prealloc.*
+  notify:
+  - restart mongodb
+- name: Install RabbitMQ server
+  apt: name=rabbitmq-server state=installed
+- name: RabbitMQ user creation
+  rabbitmq_user: user=openstack password={{ rabbit_pass }} vhost=/ configure_priv=.* read_priv=.* write_priv=.* state=present
