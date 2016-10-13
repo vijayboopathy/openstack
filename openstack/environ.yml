@@ -1,0 +1,9 @@
+---
+- hosts: controller:compute
+  become: true
+  roles:
+    - environment
+- hosts: controller
+  become: true
+  roles:
+    - envi-cont

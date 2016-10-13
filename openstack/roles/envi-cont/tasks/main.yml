@@ -1,0 +1,3 @@
+---
+# tasks file for envi-cont
+- include: controller.yml

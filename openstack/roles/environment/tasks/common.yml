@@ -1,0 +1,19 @@
+---
+- name: Update the apt cache
+  apt:  update_cache=yes
+- name: Install and Configure NTP
+  apt: name=chrony  state=latest
+- name: Update hosts file
+  template: src=hosts.j2  dest=/etc/hosts
+- name: Chrony (NTP) configuration file
+  template: src=chrony.conf.j2  dest=/etc/chrony/chrony.conf
+  notify:
+  - restart chrony
+- name: Install software properties
+  apt: name=software-properties-common  state=installed
+- name: Add OpenStack Repository
+  apt_repository: repo='deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/liberty main'
+- name: Update the apt cache and upgrade distro with OpenStack Repository
+  apt:  update_cache=yes upgrade=dist
+- name: Install OpenStack Client
+  apt: name=python-openstackclient state=installed
