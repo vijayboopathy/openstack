@@ -4,22 +4,11 @@
             state=present
             login_user=root
             login_password={{ mysql_rootpass }}
-- name: Set user privileges
-  mysql_user: user={{ mysql_user }}
+- name: Create Keystone MySQL user
+  mysql_user: login_user=root
+              login_password={{ mysql_rootpass }}
+              name=keystone
               password={{ mysql_userpass }}
               state=present
-              priv={{ mysql_privileges|join('/') }}
-              host={{ remote_host_ip }}
-- name: Reload privilege tables
-  command: 'mysql -ne "{{ item }}"'
-  with_items:
-    - FLUSH PRIVILEGES
-- name: Bind address for mysql
-  template: src=50-server.conf.j2 dest=/etc/mysql/mariadb.conf.d/50-server.cnf
-  notify: restart mysql
-- name: Character set change
-  template: src=50-client.cnf.j2 dest=/etc/mysql/mariadb.conf.d/50-client.cnf
-  notify: restart mysql
-- name: Character set change
-  template: src=50-mysql-clients.cnf.j2 dest=/etc/mysql/mariadb.conf.d/50-mysql-clients.cnf
-  notify: restart mysql
+              priv=keystone.*:ALL
+              host_all=yes

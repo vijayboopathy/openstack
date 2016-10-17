@@ -2,7 +2,7 @@
 - name: Disable Keystone start on boot
   shell: echo "manual" > /etc/init/keystone.override
 - name: Install Keystone, Apache and Memcache
-  apt: name={{item}}  state=installed
+  apt: name={{item}}  state=installed allow_unauthenticated=yes
   with_items:
     - keystone
     - apache2
@@ -12,7 +12,7 @@
 - name: Keystone configuration
   template: src=keystone.conf.j2  dest=/etc/keystone/keystone.conf
 - name: Populate the Identity service database
-  shell: keystone-manage db_sync keystone
+  shell: su -s /bin/sh -c "keystone-manage db_sync" keystone
   become: yes
   become_user: root
 - name: Apache main configuration
