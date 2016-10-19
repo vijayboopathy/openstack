@@ -17,5 +17,11 @@
   become_user: root
 - name: Apache main configuration
   template: src=apache2.conf.j2 dest=/etc/apache2.conf
+  notify:
+    - restart apache
 - name: WSGI configuration
   template: src=wsgi-keystone.conf.j2 dest=/etc/apache2/sites-availablewsgi-keystone.conf
+  notify:
+    - restart apache
+- name: Delete SQLite database
+  file: path=/var/lib/keystone/keystone.db state=absent force=yes
