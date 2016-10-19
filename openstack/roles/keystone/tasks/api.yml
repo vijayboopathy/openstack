@@ -1,0 +1,32 @@
+---
+- name: Configure the authentication token
+  lineinfile: dest=/etc/environment
+              line='export OS_TOKEN={{admin_token}}'
+              insertafter='EOF'
+              regexp='export OS_TOKEN={{admin_token}}'
+              state=present
+- name: Configure the endpoint URL
+  lineinfile: dest=/etc/environment
+              line='export OS_URL=http://controller:35357/v3'
+              insertafter='EOF'
+              regexp='export OS_URL=http://controller:35357/v3'
+              state=present
+- name: Configure the Identity API version
+  lineinfile: dest=/etc/environment
+              line='export OS_IDENTITY_API_VERSION=3'
+              insertafter='EOF'
+              regexp='export OS_IDENTITY_API_VERSION=3'
+              state=present
+
+#- name: Source the bashrc file
+#  shell: source /root/.bashrc
+#  args:
+#     executable: /bin/bash
+- name: Create the service entity for the Identity service
+  copy: src=./files/keystone.sh  dest=/openstack/keystone.sh
+- name: Create the service entity for the Identity service
+  command: bash /openstack/keystone.sh
+  environment:
+    OS_TOKEN: '{{admin_token}}'
+    OS_URL: 'http://controller:35357/v3'
+    OS_IDENTITY_API_VERSION: '3'

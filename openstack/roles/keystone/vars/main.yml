@@ -1,0 +1,8 @@
+---
+# vars file for keystone
+mysql_rootpass: password
+mysql_user: keystone
+mysql_userpass: password
+remote_host_ip: '%'
+admin_token: a5b2d59412a055cb9d7f
+admin_pass: password

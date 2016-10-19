@@ -13,7 +13,9 @@
   apt: name=software-properties-common  state=installed
 - name: Add OpenStack Repository
   apt_repository: repo='deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/liberty main'
-- name: Update the apt cache and upgrade distro with OpenStack Repository
-  apt:  update_cache=yes upgrade=dist
+- name: Update the apt cache with OpenStack Repository
+  apt:  update_cache=yes
+- name: Distro upgrade
+  command: apt-get dist-upgrade --allow-unauthenticated
 - name: Install OpenStack Client
-  apt: name=python-openstackclient state=installed
+  apt: name=python-openstackclient state=installed allow_unauthenticated=yes

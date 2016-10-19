@@ -1,6 +1,6 @@
 ---
 - name: Install Maria DB
-  apt: name={{item}}  state=installed
+  apt: name={{item}}  state=installed allow_unauthenticated=yes
   with_items:
     - mariadb-server
     - python-pymysql
@@ -9,7 +9,7 @@
   notify:
   - restart mariadb
 - name: Install python mysql module
-  apt: name=python-mysqldb state=installed
+  apt: name=python-mysqldb state=installed allow_unauthenticated=yes
 - name: delete anonymous MySQL server user for {{ ansible_nodename }}
   mysql_user: login_user=root
               login_password='{{ mysql_root }}'
@@ -37,7 +37,7 @@
 - name: Remove the MySQL test database
   action: mysql_db login_user=root login_password="{{ mysql_root }}" db=test state=absent
 - name: NoSQL DB (Mongo DB) installtion
-  apt: name={{item}}  state=installed
+  apt: name={{item}}  state=installed allow_unauthenticated=yes
   with_items:
     - mongodb-server
     - mongodb-clients
@@ -53,6 +53,6 @@
   notify:
   - restart mongodb
 - name: Install RabbitMQ server
-  apt: name=rabbitmq-server state=installed
+  apt: name=rabbitmq-server state=installed allow_unauthenticated=yes
 - name: RabbitMQ user creation
   rabbitmq_user: user=openstack password={{ rabbit_pass }} vhost=/ configure_priv=.* read_priv=.* write_priv=.* state=present
