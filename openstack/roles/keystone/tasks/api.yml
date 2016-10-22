@@ -36,5 +36,3 @@
     OS_IDENTITY_API_VERSION: '3'
 - name: Install Python pip
   apt: name=python-pip  state=installed allow_unauthenticated=yes
-- name: Install Shade
-  pip: name=shade
