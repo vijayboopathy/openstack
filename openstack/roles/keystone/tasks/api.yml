@@ -46,4 +46,9 @@
     OS_IDENTITY_API_VERSION: '3'
 - name: Install Python pip
   apt: name=python-pip  state=installed allow_unauthenticated=yes
-- pip: name=shade state=absent
+- name: Create OpenRC file
+  template: src=admin-openrc.sh.j2 dest=/openstack/admin-openrc.sh
+- name: Check the operation
+  shell: source /openstack/admin-openrc.sh && openstack token issue
+  register: openrc
+- debug: var=openrc verbosity=2
