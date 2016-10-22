@@ -6,3 +6,4 @@ mysql_userpass: password
 remote_host_ip: '%'
 admin_token: a5b2d59412a055cb9d7f
 admin_pass: password
+openstack_admin_pass: password
