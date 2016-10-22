@@ -1,4 +1,4 @@
 ---
 # vars file for environment
-cont_ip=192.168.0.54
-comp_ip=192.168.0.56
+cont_ip: 192.168.0.54
+comp_ip: 192.168.0.56
