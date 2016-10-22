@@ -53,4 +53,4 @@
   args:
    executable: /bin/bash
   register: openrc
-- debug: var=openrc verbosity=2
+- debug: var=openrc verbosity=4
