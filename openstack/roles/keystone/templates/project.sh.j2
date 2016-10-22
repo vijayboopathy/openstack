@@ -1,6 +1,4 @@
 #!/bin/bash
-openstack project delete admin &&
-openstack role delete admin &&
 openstack project create --domain default --description "Admin Project" admin &&
 openstack user create --domain default --password={{ openstack_admin_pass }} admin &&
 openstack role create admin &&
