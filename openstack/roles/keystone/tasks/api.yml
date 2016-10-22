@@ -25,8 +25,14 @@
 - name: Create the service entity for the Identity service
   copy: src=./files/keystone.sh  dest=/openstack/keystone.sh
 - name: Create the service entity for the Identity service
-  command: bash /openstack/keystone.sh
+  shell: bash /openstack/keystone.sh && touch /openstack/keystone.txt
+  args:
+    creates: /openstack/keystone.txt
   environment:
     OS_TOKEN: '{{admin_token}}'
     OS_URL: 'http://controller:35357/v3'
     OS_IDENTITY_API_VERSION: '3'
+- name: Install Python pip
+  apt: name=python-pip  state=installed allow_unauthenticated=yes
+- name: Install Shade
+  pip: name=shade
