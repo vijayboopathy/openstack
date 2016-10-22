@@ -22,6 +22,8 @@
 #  shell: source /root/.bashrc
 #  args:
 #     executable: /bin/bash
+- name: Create Openstack common folder
+  file: path=/openstack state=directory mode=0755
 - name: Create the service entity for the Identity service
   copy: src=./files/keystone.sh  dest=/openstack/keystone.sh force=yes
 - name: Create the service entity for the Identity service
