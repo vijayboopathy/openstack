@@ -9,7 +9,6 @@
     - libapache2-mod-wsgi
     - memcached
     - python-memcache
-- meta: flush_handlers
 - name: Keystone configuration
   template: src=keystone.conf.j2  dest=/etc/keystone/keystone.conf
   notify:
