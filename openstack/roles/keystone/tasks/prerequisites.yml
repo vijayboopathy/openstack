@@ -11,4 +11,8 @@
               password={{ mysql_userpass }}
               state=present
               priv=keystone.*:ALL
+- name: Set privileges for Keystone user
+  mysql_user: login_user=root
+              login_password={{ mysql_rootpass }}
+              name=keystone
               host_all=yes
