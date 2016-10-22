@@ -37,7 +37,7 @@
 - name: Copy Admin project script
   template: src=project.sh.j2 dest=/openstack/project.sh
 - name: Create Admin project
-shell: bash /openstack/keystone.sh && touch /openstack/admin-pro.txt
+  shell: bash /openstack/project.sh && touch /openstack/admin-pro.txt
 args:
   creates: /openstack/admin-pro.txt
 environment:
