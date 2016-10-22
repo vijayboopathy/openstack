@@ -1,4 +1,6 @@
 ---
+- name: Define Network Interfaces
+  template: src=interfaces.j2 dest=/etc/network/interfaces
 - name: Update the apt cache
   apt:  update_cache=yes
 - name: Install and Configure NTP
