@@ -23,7 +23,7 @@
 #  args:
 #     executable: /bin/bash
 - name: Create the service entity for the Identity service
-  copy: src=./files/keystone.sh  dest=/openstack/keystone.sh
+  copy: src=./files/keystone.sh  dest=/openstack/keystone.sh force=yes
 - name: Create the service entity for the Identity service
   shell: bash /openstack/keystone.sh && touch /openstack/keystone.txt
   args:
