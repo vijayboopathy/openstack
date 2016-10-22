@@ -38,12 +38,12 @@
   template: src=project.sh.j2 dest=/openstack/project.sh
 - name: Create Admin project
   shell: bash /openstack/project.sh && touch /openstack/admin-pro.txt
-args:
-  creates: /openstack/admin-pro.txt
-environment:
-  OS_TOKEN: '{{admin_token}}'
-  OS_URL: 'http://controller:35357/v3'
-  OS_IDENTITY_API_VERSION: '3'
+  args:
+    creates: /openstack/admin-pro.txt
+  environment:
+    OS_TOKEN: '{{admin_token}}'
+    OS_URL: 'http://controller:35357/v3'
+    OS_IDENTITY_API_VERSION: '3'
 - name: Install Python pip
   apt: name=python-pip  state=installed allow_unauthenticated=yes
 - pip: name=shade state=absent
