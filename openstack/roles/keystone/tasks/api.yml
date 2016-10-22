@@ -50,5 +50,7 @@
   template: src=admin-openrc.sh.j2 dest=/openstack/admin-openrc.sh
 - name: Check the operation
   shell: source /openstack/admin-openrc.sh && openstack token issue
+  args:
+   executable: /bin/bash
   register: openrc
 - debug: var=openrc verbosity=2
