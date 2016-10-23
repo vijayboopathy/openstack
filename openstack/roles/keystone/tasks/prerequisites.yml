@@ -11,4 +11,4 @@
               password={{ mysql_userpass }}
               state=present
               priv=keystone.*:ALL
-              host_all=yes
+              host={{ remote_host_ip }}

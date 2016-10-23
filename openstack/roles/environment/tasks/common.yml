@@ -1,4 +1,6 @@
 ---
+- name: Define Network Interfaces
+  template: src=interfaces.j2 dest=/etc/network/interfaces
 - name: Update the apt cache
   apt:  update_cache=yes
 - name: Install and Configure NTP
@@ -12,10 +14,10 @@
 - name: Install software properties
   apt: name=software-properties-common  state=installed
 - name: Add OpenStack Repository
-  apt_repository: repo='deb http://ubuntu-cloud.archive.canonical.com/ubuntu trusty-updates/liberty main'
+  command: add-apt-repository cloud-archive:liberty -y
 - name: Update the apt cache with OpenStack Repository
   apt:  update_cache=yes
 - name: Distro upgrade
-  command: apt-get dist-upgrade --allow-unauthenticated
+  apt: upgrade=dist allow_unauthenticated=yes
 - name: Install OpenStack Client
   apt: name=python-openstackclient state=installed allow_unauthenticated=yes
