@@ -1,10 +1,10 @@
 ---
-- name: Create keystone db
+- name: Create glance db
   mysql_db: name=glance
             state=present
             login_user=root
             login_password={{ mysql_rootpass }}
-- name: Create Keystone MySQL user
+- name: Create glance MySQL user
   mysql_user: login_user=root
               login_password={{ mysql_rootpass }}
               name=glance
