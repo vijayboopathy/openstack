@@ -1,7 +1,0 @@
----
-# handlers file for envi-cont
-- name: restart mariadb
-  service: name=mysql state=restarted
-- name: restart mongodb
-  service: name=mongodb state=restarted
-  

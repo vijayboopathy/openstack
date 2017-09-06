@@ -1,4 +1,0 @@
----
-- include: environ.yml
-- include: keystone.yml
-- include: glance.yml

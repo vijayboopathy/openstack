@@ -1,5 +1,0 @@
----
-# tasks file for keystone
-- include: prerequisites.yml
-- include: install.yml
-- include: api.yml

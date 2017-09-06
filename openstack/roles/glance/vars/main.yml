@@ -1,8 +1,0 @@
----
-# vars file for glance
-mysql_rootpass: password
-mysql_user: glance
-mysql_userpass: password
-remote_host_ip: '%'
-admin_pass: password
-openstack_admin_pass: password
